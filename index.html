@@ -1,0 +1,195 @@
+<!--
+Made By SEUNGWOO LEE, ALL RIGHT RESERVED
+Last Modified: Jun, 28th, 2017 AM 10 KST
+-->
+<html>
+<head>
+<title>Probability of new onset CKD development Calculator</title>
+<script>
+document.body.style.zoom="90%"
+</script>
+<style>
+* {text-align: center;}
+</style>
+</head>
+<body>
+<body>
+  <h2>Probability of new onset CKD development<br />Calculator</h2>
+  <h3>
+  AGE <input type="text" id="Age"></input><br />
+  Gender <input type="text" id="Gender"></input><br />
+  Diabetes Mellitus <input type="text" id="diabets"></input><br />
+  Preoperative eGFR <input type="text" id="egfr"></input><br />
+  Tumor Size <input type="text" id="tumor_size"></input>
+  </h3>
+  <button id="calculate" type="button" onclick="GetValue()">Calculate</button>
+  <p id="ValueBox">
+  Age: 15 ~ 85 <br />
+  Gender: 0 - Female / 1 - Male <br />
+  Diabetes Mellitus: 0 - No / 1 - Yes <br />
+  Preoperative eGFR: 160 ~ 60 <br />
+  Tumor Size: 0 ~ 7 <br />
+  <b>Type and Press Buttion</b>
+  </p>
+  <h3 id="ResultBox"></h3>
+  <canvas id="Boxed" style="background-image:url('graph.PNG');" width="950" height="556"></canvas>
+<script type="application/javascript">
+var tried = 0;
+var canvas = document.getElementById("Boxed");
+var context = canvas.getContext("2d");
+
+function DRAW(x, y, z, i, j, k){
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	var a = 354 + ((x-15)*3.35);
+	if (y == 0){
+		var gender = 354;
+	}
+	else if (y == 1){
+		var gender = 397;
+	}
+	if (z == 0){
+		var diabetes = 354;
+	}
+	else if (z == 1){
+		var diabetes = 421;
+	}
+	var tumor_size;
+	switch(j) {
+	case 0:
+		tumor_size = 354;
+		break;
+    case 1:
+		tumor_size = 382;
+		break;
+	case 2:
+		tumor_size = 410;
+		break;
+	case 3:
+		tumor_size = 438;
+		break;
+	case 4:
+		tumor_size = 466;
+		break;
+	case 5:
+		tumor_size = 495;
+		break;
+	case 6:
+		tumor_size = 523;
+		break;
+	case 7:
+		tumor_size = 551;
+		break;
+	}
+	var egfr = 354 + ((160-i)*5.65);
+	var total = 354 + (k * 3.15);
+	// Let's Draw!
+	// Age
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(a,78);
+	context.lineTo(a,83);
+	context.lineWidth = 3;
+	context.stroke();
+	// Gender
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(gender,121);
+	context.lineTo(gender,125);
+	context.lineWidth = 3;
+	context.stroke();
+	// Diabetes
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(diabetes,165);
+	context.lineTo(diabetes,169);
+	context.lineWidth = 3;
+	context.stroke();
+	// eGFR
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(egfr,212);
+	context.lineTo(egfr,216);
+	context.lineWidth = 3;
+	context.stroke();
+	// Tumor Size
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(tumor_size,259);
+	context.lineTo(tumor_size,263);
+	context.lineWidth = 3;
+	context.stroke();
+	// Total
+	context.beginPath();
+	context.strokeStyle = '#ff0000';
+	context.moveTo(total,297);
+	context.lineTo(total,550);
+	context.lineWidth = 3;
+	context.stroke();
+}
+function GetValue(){
+	var age = Number(document.getElementById("Age").value);
+	var gender = Number(document.getElementById("Gender").value);
+	var diabets = Number(document.getElementById("diabets").value);
+	var egfr = Number(document.getElementById("egfr").value);
+	var ts = Number(document.getElementById("tumor_size").value);
+	var sum = Number(Age(age)+Gender(gender)+Diabetes(diabets)+eGFR(egfr)+Tumor_Size(ts));
+	document.getElementById("ResultBox").innerHTML = "Total Points: " + Math.round(sum);
+	DRAW(age, gender, diabets, egfr, ts, sum);
+};
+
+function ReloadPage(){
+	location.reload();
+};
+
+function Age(x){
+	if (x == 15){
+		return 0;
+	}
+	else if (x == 85){
+		return 41.25;
+	}
+	else{
+		return (x-16) * 0.65
+	}
+};
+
+function Gender(x){
+	if (x == 0){
+		return 0;
+	}
+	
+	else if (x == 1){
+		return 7.5;
+	}
+};
+
+function Diabetes(x){
+	if (x == 0) {
+		return 0;
+	}
+	
+	else if (x == 1){
+		return 12.3;
+	}
+};
+
+function eGFR(x){
+	if (x == 0){
+		return 0;
+	}
+	
+	else if (x == 60){
+		return 100;
+	}
+	
+	else{
+		return 160 - x;
+	}
+};
+
+function Tumor_Size(x) {
+	return x * 5;
+};
+</script>
+</body>
+</html>
