@@ -1,4 +1,4 @@
-# Paper_Project_eGFR
+# Yonsei Univ. UROLOGY PAPER PROJECT
 
 This is a Paper Project I've Contributed in South Korean Univ. (Yonsei Univ.)
 
